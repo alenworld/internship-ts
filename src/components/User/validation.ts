@@ -1,4 +1,6 @@
-const Validation = require('../validation');
+import Validation from '../validation';
+import Joi from 'joi';
+import { IUserModel } from './model';
 
 /**
  * @exports
@@ -6,69 +8,73 @@ const Validation = require('../validation');
  * @extends Validation
  */
 class UserValidation extends Validation {
+  
   /**
-     * @param {String} data.id - objectId
-     * @returns
-     * @memberof UserValidation
-     */
-  findById(data) {
-    return this.Joi
-      .object({
-        id: this.Joi.objectId(),
-      })
-      .validate(data);
-  }
-
-  /**
-     * @param {String} profile.email
-     * @param {String} profile.fullName
-     * @returns
-     * @memberof UserValidation
-     */
-  create(profile) {
-    return this.Joi
-      .object({
-        email: this.Joi.string().email(),
-        fullName: this.Joi
-          .string()
-          .min(1)
-          .max(30)
-          .required(),
-      })
-      .validate(profile);
+   * 
+   * Creates an instance of UserValidation
+   * @memberof UserValidation
+   */
+  constructor(){
+    super();
   }
 
   /**
      * @param {String} data.id - objectId
-     * @param {String} data.fullName
-     * @returns
+     * @returns {Joi.ValidationResult<{id: string}>}
      * @memberof UserValidation
      */
-  updateById(data) {
-    return this.Joi
-      .object({
-        id: this.Joi.objectId(),
-        fullName: this.Joi
-          .string()
-          .min(1)
-          .max(30)
-          .required(),
-      })
-      .validate(data);
+  findById(body: {id: string}): Joi.ValidationResult {
+    const schema: Joi.Schema = Joi.object().keys({
+      id: this.customJoi.objectId().required()
+  });
+
+  return schema.validate(body);
   }
 
   /**
-     * @param {String} data.id - objectId
+     * @param {IUserModel} params
+     * @returns {Joi.ValidationResult}
+     * @memberof UserValidation
+     */
+  create(profile: IUserModel): Joi.ValidationResult {
+    const schema: Joi.Schema = Joi.object().keys({
+      email: Joi.string().email({
+          minDomainSegments: 2
+      }).required(),
+      fullName: Joi.string().required()
+  });
+
+  return schema.validate(profile);
+  }
+
+  /**
+     * @param {{ id: string, fullName: string }} body
      * @returns
      * @memberof UserValidation
      */
-  deleteById(data) {
-    return this.Joi
-      .object({
-        id: this.Joi.objectId(),
-      })
-      .validate(data);
+  updateById(data: IUserModel): Joi.ValidationResult {
+    const schema: Joi.Schema = Joi.object().keys({
+      id: this.customJoi.objectId().required(),
+      fullName: Joi.string().required()
+    })
+
+    return schema.validate(data)
+  }
+
+  /**
+     * @param {{ id: string }} body
+     * @returns
+     * @memberof UserValidation
+     */
+  deleteById(body: {
+    id: string
+  }): Joi.ValidationResult {
+    const schema: Joi.Schema = Joi.object().keys({
+      id: this.customJoi.objectId().required()
+  });
+
+  return schema.validate(body);
   }
 }
 
-module.exports = new UserValidation();
+export default new UserValidation();

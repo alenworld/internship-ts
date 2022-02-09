@@ -1,5 +1,4 @@
 import express from 'express';
-import { Express } from 'express-serve-static-core';
 import http from 'http';
 import UserRouter from '../components/User/router';
 
@@ -10,7 +9,7 @@ export default {
      * @summary init Application router
      * @returns void
      */
-  init(app: Express) {
+  init(app: express.Application) {
     const router = express.Router();
 
     /**
@@ -29,7 +28,7 @@ export default {
          * @inner
          * @param {callback} middleware - Express middleware.
          */
-    app.use((req, res) => {
+    app.use((req, res, next) => {
       res.status(404).send(http.STATUS_CODES[404]);
     });
 

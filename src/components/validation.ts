@@ -2,40 +2,46 @@ import Joi from 'joi';
 import { Types } from 'mongoose';
 
 /**
- * @exports
+ * @export
  * @class Validation
  */
-class Validation {
+ abstract class Validation {
+  // can`t assign to customJoi any type of Joi Schemas - because of custom field objectId. Need to discuss this
+  customJoi: any;
+
   /**
-     * Creates an instance of Schema.
-     * @constructor
-     * @memberof JoiSchema
-     */
+   * @static
+   * @type {string}
+   * @memberof JoiSchema
+   */
+  readonly messageObjectId: string =
+      'Argument passed in must be a single String of 12 bytes or a string of 24 hex characters';
+
+  /**
+   * Creates an instance of Schema.
+   * @memberof JoiSchema
+   */
   constructor() {
-    /**
-         * @static
-         * @type {string}
-         * @memberof JoiSchema
-         */
-    this.messageObjectId = 'Argument passed in must be a single String of 12 bytes or a string of 24 hex characters';
-    this.Joi = Joi.extend({
-      type: 'objectId',
-      messages: {
-        'objectId.base': this.messageObjectId,
-      },
-      validate(value, helpers) {
-        if (!Types.ObjectId.isValid(value)) {
-          return {
-            value,
-            errors: helpers.error('objectId.base'),
-          };
-        }
-        return {
-          value,
-        }; // Keep the value as it was
-      },
-    });
+      this.customJoi = Joi.extend((joi) => ({
+          type: 'objectId',
+          base: joi.string(),
+          validate(
+              value: any,
+              helpers: Joi.CustomHelpers,
+          ): Object | string {
+              if (!Types.ObjectId.isValid(value)) {
+                  return this.createError(
+                      'objectId.base', {
+                          value
+                      },
+                      helpers,
+                  );
+              }
+
+              return value; // Keep the value as it was
+          }
+      }));
   }
 }
 
-module.exports = Validation;
+export default Validation;

@@ -3,7 +3,7 @@ import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import helmet from 'helmet';
-import { Express } from 'express-serve-static-core';
+import express from 'express'
 
 export default {
   /**
@@ -12,7 +12,7 @@ export default {
      * @param {express.Application} app
      * @returns void
      */
-  init(app: Express) {
+  init(app: express.Application) {
     app.use(
       bodyParser.urlencoded({
         extended: true,

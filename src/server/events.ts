@@ -4,7 +4,7 @@
  * @param  {number|string|boolean} port
  * @returns throw error
  */
-function onError(error: NodeJS.ErrnoException, port: number | string | boolean) {
+function onError(error: NodeJS.ErrnoException, port: number | string | boolean): void {
   if (error.syscall !== 'listen') {
     throw error;
   }

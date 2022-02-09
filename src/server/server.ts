@@ -1,5 +1,4 @@
 import express from 'express';
-import { Express } from 'express-serve-static-core';
 import middleware from '../config/middleware';
 import routes from '../config/router';
 
@@ -8,7 +7,7 @@ import routes from '../config/router';
  * @type {express}
  * @constant {express.Application}
  */
-const app: Express = express();
+const app: express.Application = express();
 
 /**
  * @description express.Application Middleware
