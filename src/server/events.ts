@@ -1,3 +1,5 @@
+import http from 'http';
+
 /**
  * @function
  * @param  {NodeJS.ErrnoException} error
@@ -42,7 +44,7 @@ function onListening() {
  * @param {http.Server} Server
  * @param {number} port
  */
-function bind(Server, port) {
+function bind(Server: http.Server, port: number) {
   Server.on('error', (error) => this.onError(error, port));
   Server.on('listening', this.onListening.bind(Server));
 }

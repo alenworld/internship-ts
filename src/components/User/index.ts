@@ -36,12 +36,6 @@ async function findAll (req: Request, res: Response, next: NextFunction): Promis
  */
 async function findById (req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
-    // const { error } = UserValidation.findById(req.params)
-
-    // if (error) {
-    //   throw new ValidationError(error.details)
-    // }
-
     const user: IUserModel = await UserService.findById(req.params.id)
 
     res.status(200).json({
@@ -73,12 +67,6 @@ async function findById (req: Request, res: Response, next: NextFunction): Promi
  */
 async function create (req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
-    // const { error } = UserValidation.create(req.body)
-
-    // if (error) {
-    //   throw new ValidationError(error.details)
-    // }
-
     const user = await UserService.create(req.body)
 
     res.status(201).json({
@@ -110,12 +98,6 @@ async function create (req: Request, res: Response, next: NextFunction): Promise
  */
 async function updateById (req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
-    // const { error } = UserValidation.updateById(req.body)
-
-    // if (error) {
-    //   throw new ValidationError(error.details)
-    // }
-
     const updatedUser = await UserService.updateById(req.body)
 
     res.status(200).json({
@@ -147,12 +129,6 @@ async function updateById (req: Request, res: Response, next: NextFunction): Pro
  */
 async function deleteById (req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
-    // const { error } = UserValidation.deleteById(req.body)
-
-    // if (error) {
-    //   throw new ValidationError(error.details)
-    // }
-
     const deletedUser = await UserService.deleteById(req.body.id)
 
     res.status(200).json({

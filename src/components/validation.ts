@@ -6,6 +6,7 @@ import { Types } from 'mongoose';
  * @class Validation
  */
  abstract class Validation {
+  // Valera, your comment below.
   // can`t assign to customJoi any type of Joi Schemas - because of custom field objectId. Need to discuss this
   customJoi: any;
 
@@ -38,7 +39,7 @@ import { Types } from 'mongoose';
                   );
               }
 
-              return value; // Keep the value as it was
+              return value;
           }
       }));
   }
