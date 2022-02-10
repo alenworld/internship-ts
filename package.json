@@ -1,13 +1,13 @@
 {
   "name": "internship-ts",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "dist/server/server.js",
   "author": "Alen Inal-Ipa <inalipa.alen@gmail.com>",
   "scripts": {
     "start": "nodemon",
     "build": "tsc"
   },
-  "description": "",
+  "description": "JS to TS",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/alenworld/internship-ts.git"
