@@ -67,7 +67,7 @@ async function findById (req: Request, res: Response, next: NextFunction): Promi
  */
 async function create (req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
-    const user = await UserService.create(req.body)
+    const user: IUserModel = await UserService.create(req.body)
 
     res.status(201).json({
       data: user
@@ -98,7 +98,7 @@ async function create (req: Request, res: Response, next: NextFunction): Promise
  */
 async function updateById (req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
-    const updatedUser = await UserService.updateById(req.body)
+    const updatedUser: IUserModel = await UserService.updateById(req.body)
 
     res.status(200).json({
       data: updatedUser
@@ -129,7 +129,7 @@ async function updateById (req: Request, res: Response, next: NextFunction): Pro
  */
 async function deleteById (req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
-    const deletedUser = await UserService.deleteById(req.body.id)
+    const deletedUser: IUserModel = await UserService.deleteById(req.body.id)
 
     res.status(200).json({
       data: deletedUser
